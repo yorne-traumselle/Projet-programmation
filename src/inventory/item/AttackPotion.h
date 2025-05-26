@@ -8,5 +8,6 @@ public:
 
 	virtual ~AttackPotion() = default;
 
-	void consume(Fighter& fight) override;
+	void consume(Fighter& fight);
 };
+#endif

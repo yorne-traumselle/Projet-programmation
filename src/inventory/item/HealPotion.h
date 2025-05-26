@@ -8,5 +8,6 @@ public:
 
 	virtual ~HealPotion() = default;
 
-	void consume(Fighter& fighter) override;
+	void consume(Fighter& fighter);
 };
+#endif
