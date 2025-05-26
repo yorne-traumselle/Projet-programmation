@@ -1,0 +1,69 @@
+#ifndef _MAP_H
+#define _MAP_H
+
+#include <vector>
+
+#include "../utils/CSVReader.h"
+#include "../graphics/TextureManager.h"
+#include "../config.h"
+#include "../entity/Entity.h"
+
+class Entity;
+
+/// <summary>
+/// Classe utilisée pour gérer la carte du jeu
+/// </summary>
+class Map {
+
+private : 
+
+    std::vector< std::vector< int > > m_map;	//un exemple de représentation de la carte sous forme de case
+
+	std::vector<std::shared_ptr<Entity>> _entities;	//Un exemple de gestion des entitées
+
+	unsigned int m_sizeX;    //Taille de la carte
+	unsigned int m_sizeY;
+
+public :
+
+    /// <summary>
+	/// Constructeur de la carte du jeu.
+	/// </summary>
+	/// <param name="filename">Nom du fichier csv contenant la carte du jeu.</param>
+	Map(std::string filename = "assets/maps/map_lvl1.csv");
+	// <summary>
+	/// Destucteur
+	/// </summary>
+	virtual ~Map();
+
+    /// <summary>
+	/// Getter sur la taille de la carte.
+	/// </summary>
+	/// <returns>Taille</returns>
+	unsigned int getSizeX() const { return m_sizeX; }
+	/// <summary>
+	/// Getter sur la taille de la carte.
+	/// </summary>
+	/// <returns>Taille</returns>
+	unsigned int getSizeY() const { return m_sizeY; }
+	/// <summary>
+	/// Retroune le type de texture d'une case.
+	/// </summary>
+	/// <param name="x">Indice de la carte</param>
+	/// <param name="y">Indice de la carte</param>
+	/// <returns>Le type de la case</returns>
+	int type(int x, int y) const;
+
+    /// <summary>
+	/// Chargement de la carte en fonction du fichier csv.
+	/// </summary>
+	/// <param name="filename">Nom du fichier csv contenant la carte du jeu.</param>
+	void loadMap(std::string filename = "ressources/maps/map_lvl1.csv");
+	/// <summary>
+	/// Utilisation des textures en fonction du numéro de la case.
+	/// </summary>
+	void drawMap();
+
+};
+
+#endif //_MAP_H
