@@ -25,6 +25,11 @@ public:
 		m_coordinates[0] = x;
 		m_coordinates[1] = y;
 	}
+	Vector2(Scalar z)
+	{
+		m_coordinates[0] = z;
+		m_coordinates[1] = z;
+	}
 	
 	/// <summary>
 	/// Gets the value of the coordinate designated by index.
