@@ -3,7 +3,7 @@
 
 #include <string>
 
-class item{
+class Item{
 protected:
 	std::string m_name;
 	std::string m_description;
@@ -11,10 +11,10 @@ protected:
 
 public:
 	// Constructeur
-	item(std::string name, std::string description, float price);
+	Item(std::string name, std::string description, float price);
 
 	// Destructeur
-	virtual ~item() = default;
+	virtual ~Item() = default;
 
 	// Pour obtenir le nom de l'item
 	std::string getName() const;
@@ -24,5 +24,6 @@ public:
 
 	// Pour obtenir le prix d'achat de l'item
 	float getPrice() const;
+
 };
 #endif
