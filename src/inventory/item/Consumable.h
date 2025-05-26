@@ -1,7 +1,7 @@
 #ifndef __CONSUMABLE__H__
 #define __CONSUMABLE__H__
 #include "Item.h"
-#include "Fighter.h"
+#include "src/entity/Fighter.h"
 
 // Permet de gérer le type de consommable
 enum class TypeEffect{
