@@ -19,8 +19,6 @@ class Map {
 
 private : 
 
-    std::vector< std::vector<int> > m_maps;	//un exemple de représentation de la carte sous forme de case
-
 	std::vector< std::vector<Cell> > m_cells;
 	std::vector<std::shared_ptr<Entity>> m_entities;	//Un exemple de gestion des entitées
 
@@ -69,7 +67,12 @@ public :
 	/// </summary>
 	void drawMap();
 
-	const float getTileSize() const;
+
+	const int getHeight() const;
+
+	const int getWidth() const;
+
+	Cell * getCell(Vector2<unsigned int> position);
     
 	class Way {
 

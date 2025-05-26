@@ -22,10 +22,18 @@ void Map::loadMap(std::string filename)
 	m_tiles = (new CSVReader(filename))->getData();
 	m_sizeY = m_tiles.size();
 	m_sizeX = m_tiles.front().size();
-// On affecte la vaeur de chaque tile du fichier csv aux cells 
-	for (unsigned int row = 0; row < m_sizeY; ++row) { 
-		for (unsigned int column = 0; column < m_sizeX; ++column) {
-			m_cells.at(row).at(column).setTile(m_tiles.at(row).at(column));
+
+// Redimensionne m_cells à la bonne taille
+	m_cells.resize(m_sizeY);
+	for (auto& row : m_cells) {
+		row.reserve(m_sizeX);  // Meilleure perf que resize + push_back
+	}
+
+	// Remplit chaque Cell avec i (ligne), j (colonne), et la tile correspondante
+	for (unsigned int i = 0; i < m_sizeY; ++i) {
+		for (unsigned int j = 0; j < m_sizeX; ++j) {
+			int tile = m_tiles[i][j];
+			m_cells[i].emplace_back(i, j, tile);  // Construction directe de la Cell
 		}
 	}
 }
@@ -54,4 +62,15 @@ void Map::drawMap()
 			
 		}
 	}
+}
+
+const int Map::getHeight() const{
+	return m_cells.size();
+}
+const int Map::getWidth() const{
+	m_cells.front().size();
+}
+
+Cell * Map::getCell(Vector2<unsigned int> position) {
+	return &(m_cells.at(position[0]).at(position[1]));
 }
