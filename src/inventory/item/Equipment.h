@@ -1,7 +1,7 @@
 #ifndef __EQUIPMENT__H__
 #define __EQUIPMENT__H__
 #include "Item.h"
-#include "Fighter.h"
+#include "../../entity/Fighter.h"
 
 enum class EquipmentType {
     Weapon,
