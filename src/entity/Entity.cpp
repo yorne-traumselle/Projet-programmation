@@ -17,6 +17,10 @@ void Entity::setPosition(const Vector2<unsigned int>& position) {
         m_status = running;
     }
 }
+void Entity::setPositionDirectly(const Vector2<unsigned int>& position) {
+    m_tile = position;
+    m_position = position*Map::m_tile_size + Vector2<float>(Map::m_tile_size/2);
+}
 
 const Vector2<float>& Entity::getPosition(){
     return m_position;

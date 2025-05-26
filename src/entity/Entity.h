@@ -34,14 +34,15 @@ public :
     /// <param name="size">Taille (largeur et hauteur) de l'entité.</param>
     /// <param name="filename">nom et chemin du fichier contenant la texture.</param>
     /// <param name="nameEntity">Nom donné à l'entité pour l'associer à la texture</param>
-    Entity(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed);
+    Entity(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed = 200);
 
     /// <summary>
 	/// Destucteur de l'entité.
 	/// </summary>
     virtual ~Entity();
 
-    void setPosition(const Vector2<unsigned int>& position); // place à la position indiquée
+    virtual void setPosition(const Vector2<unsigned int>& position); // place à la position indiquée
+	void setPositionDirectly(const Vector2<unsigned int>& position); // places directly at the desired position
     const Vector2<float>& getPosition(); // get the float position
 	const Vector2<unsigned int>& getTile(); // get which tile we are on
 	void setTile(const Vector2<unsigned int>& tile); // set the tile we are on
