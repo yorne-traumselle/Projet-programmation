@@ -10,6 +10,7 @@ class Fighter : public Entity {
 public:
     typedef enum {myTurn, inFight, notInFight} FighterStatus;
 protected :
+
     int m_maxHP;
     int m_HP;
     int m_MP[2];
@@ -39,8 +40,7 @@ public:
     void gainDef(int def, bool inFight);
     void gainMP(int mp, bool inFight);
     void gainAttack(int attack, bool inFight);
-
+    void useSpell(Vector2<unsigned int> position, int spellID);
     void update() override;
-
 };
 #endif //FIGHTER_H
