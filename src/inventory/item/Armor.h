@@ -10,3 +10,4 @@ public:
 
 	void equipped(Fighter& fighter);
 };
+#endif

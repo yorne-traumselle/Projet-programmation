@@ -1,7 +1,7 @@
 #ifndef __CONSUMABLE__H__
 #define __CONSUMABLE__H__
 #include "Item.h"
-#include "Fighter.h"
+#include "../../entity/Fighter.h"
 
 // Permet de gérer le type de consommable
 enum class TypeEffect{
@@ -11,7 +11,7 @@ enum class TypeEffect{
 };
 
 class Consumable: public Item{
-private:
+protected:
 	TypeEffect m_effect;
 	int m_power;
 
