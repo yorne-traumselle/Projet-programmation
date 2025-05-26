@@ -1,32 +1,32 @@
 
 #include "Entity.h"
 #include "../graphics/Renderer.h"
+#include "../config.h"
 
-
-Entity::Entity(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed):
-    m_position(position * Map::m_tile_size + Vector2<float>(Map::m_tile_size/2)), m_tile(position), m_speed(speed), m_size(size), m_nameEntity(nameEntity), m_status(not_moving), m_way(Map::Way()){
+Entity::Entity(Map* map, const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed): m_map(map),
+    m_position((position +Vector2(0.5, 0.5))* JeuESIR::originalTileHeight), m_tile(position), m_speed(speed), m_size(size), m_nameEntity(nameEntity), m_status(not_moving), m_way(Map::Way()){
         loadTexture(filename, m_nameEntity);
 }
 
 Entity::~Entity(){}
 
 void Entity::setPosition(const Vector2<unsigned int>& position) {
-    if (Map::getTileState(position)== free) {
-        Way way = Map::Way(m_tile, position);
+    if (!m_map->getCell(position)->occupied()) {
+        Map::Way way = Map::Way(m_map->getCell(m_tile), m_map->getCell(position));
         m_tile = position;
         m_status = running;
     }
 }
 void Entity::setPositionDirectly(const Vector2<unsigned int>& position) {
     m_tile = position;
-    m_position = position*Map::m_tile_size + Vector2<float>(Map::m_tile_size/2);
+    m_position = (position +Vector2(0.5, 0.5))* JeuESIR::originalTileHeight;
 }
 
-const Vector2<float>& Entity::getPosition(){
+const Vector2<float>& Entity::getPosition() const {
     return m_position;
 }
 
-const Vector2<unsigned int>& Entity::getTile(){
+const Vector2<unsigned int>& Entity::getTile() const {
     return m_tile;
 }
 
@@ -46,7 +46,7 @@ void Entity::setTile(const Vector2<unsigned int>& tile) {
 void Entity::update() {
     render();
     if (m_status == running){
-        Vector2<float> target = (m_tile + m_way.front())*Map::m_tile_size + Vector2<float>(Map::m_tile_size/2);
+        Vector2<float> target = (m_tile + m_way.front() + Vector2<float>(0.5, 0.5))*JeuESIR::originalTileHeight;
         Vector2<float> difference = target-m_position;
         float distance = difference.norm();
         Vector2<float> direction = difference/distance;
@@ -55,9 +55,9 @@ void Entity::update() {
             m_way.popFront();
         }
         else {
-            m_position += direction * m_speed * Timer::getInstance().getSeconds();
+            m_position = m_position+ direction * m_speed * Timer::getInstance().getSeconds();
         }
-        if (m_Way.empty()) {
+        if (m_way.empty()) {
             setStatus(not_moving);
         }
     }

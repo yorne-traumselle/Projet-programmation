@@ -14,6 +14,7 @@ public : typedef enum { running, destroy, not_moving } Status;
 
 protected:
 
+	Map* m_map;
     Vector2<float> m_position;          //Position de l'entité dans le monde
 	Vector2<unsigned int> m_tile;
 	float m_speed;
@@ -34,7 +35,7 @@ public :
     /// <param name="size">Taille (largeur et hauteur) de l'entité.</param>
     /// <param name="filename">nom et chemin du fichier contenant la texture.</param>
     /// <param name="nameEntity">Nom donné à l'entité pour l'associer à la texture</param>
-    Entity(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed = 200);
+    Entity(Map* map, const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed = 200);
 
     /// <summary>
 	/// Destucteur de l'entité.
@@ -43,8 +44,8 @@ public :
 
     virtual void setPosition(const Vector2<unsigned int>& position); // place à la position indiquée
 	void setPositionDirectly(const Vector2<unsigned int>& position); // places directly at the desired position
-    const Vector2<float>& getPosition(); // get the float position
-	const Vector2<unsigned int>& getTile(); // get which tile we are on
+    const Vector2<float>& getPosition() const; // get the float position
+	const Vector2<unsigned int>& getTile() const; // get which tile we are on
 	void setTile(const Vector2<unsigned int>& tile); // set the tile we are on
 
     /// <summary>

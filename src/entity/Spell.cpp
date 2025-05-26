@@ -12,28 +12,46 @@ Spell::Spell(int baseValue, CastZone castZone, EffectZone effecZone, unsigned in
     assert(minRange>0);
 }
 
-void Spell::cast(Vector2<unsigned int> position, Map map) {
-    int length = map.getLength();
+void Spell::cast(Fighter& caster, Vector2<unsigned int> position, Map& map) {
+    int length = map.getWidth();
     int height = map.getHeight();
     assert(position[0] < length && position[1] < height);
     assert(position[0] >= 0 && position[1] >= 0);
     switch (m_effectZone) {
         case mono :
-            if (map.getStatus(position) == free) {
-                map.getTile(position).doSpell(this);
+            if (!map.getCell(position)->occupied()) {
+                map.getCell(position).doSpell(this);
             }
             break;
         case circle:
-            for(int j = -m_zoneSize; j <= m_zoneSize; j++) {
-                for (int i = -m_zoneSize; i <= m_zoneSize; i++) {
-                    Vector2<int> place = Vector2<int>(position[0]+i, position[1]+j);
-                    if (place[0] >= 0 && place[1] >= 0 && place[0] < length && place[1] < height) {
-                        if (map.getStatus(place) == free) {
-                            map.getTile(place).doSpell(this);
+            for (int j = 0; j <= m_zoneSize; ++j) {
+                for (int i = 0; i + j <= m_zoneSize; ++i) {
+                    std::set<Vector2<int>> uniqueOffsets;
+                    uniqueOffsets.insert({ i,  j});
+                    uniqueOffsets.insert({-i,  j});
+                    uniqueOffsets.insert({ i, -j});
+                    uniqueOffsets.insert({-i, -j});
+
+                    for (const auto& offset : uniqueOffsets) {
+                        Vector2<int> place = Vector2<int>(position[0], position[1]) + offset;
+                        if (checkInMap(place, map) && !map.getCell(place)->occupied()) {
+                            map.getCell(place).doSpell(this);
                         }
                     }
-                    break;
                 }
             }
+    }
+}
+
+bool Spell::checkInMap(Vector2<int> place, const Map& map) {
+    if (place[0] < 0 || place[1] < 0 || place[0] >= map.getWidth() || place[1] >= map.getHeight()) {
+        return false;
+    }
+    return true;
+}
+
+void Spell::castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster) {
+    if (!map.getCell(position)->occupied()) {
+        cast(caster, position, map);
     }
 }

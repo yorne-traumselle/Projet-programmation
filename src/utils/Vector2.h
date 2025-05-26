@@ -30,6 +30,11 @@ public:
 		m_coordinates[0] = z;
 		m_coordinates[1] = z;
 	}
+	template<class Scalar2>
+	Vector2(const Vector2<Scalar2> & v) {
+		m_coordinates[0] = static_cast<Scalar>(v[0]);
+		m_coordinates[1] = static_cast<Scalar>(v[1]);
+	}
 	
 	/// <summary>
 	/// Gets the value of the coordinate designated by index.

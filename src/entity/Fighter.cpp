@@ -3,7 +3,7 @@
 //
 #include "Fighter.h"
 
-Fighter::Fighter(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense): Entity(position, size, filename, nameEntity), m_maxHP(HP), m_HP(HP), m_defense(defense), m_fighterStatus(notInFight) {
+Fighter::Fighter(Map * map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense): Entity(map,position, size, filename, nameEntity), m_maxHP(HP), m_HP(HP), m_defense(defense), m_fighterStatus(notInFight) {
     m_MP[0]= MP;
     m_MP[1]= MP;
     m_attack[0] = attack;
@@ -18,7 +18,7 @@ void Fighter::setPosition(const Vector2<unsigned int>& position) {
     }
     else {
         int distance = distance(m_tile, position);
-        if (distance > m_MP) {
+        if (distance > m_MP[1]) {
             Entity::setPosition(position);
         }
 
@@ -29,15 +29,9 @@ unsigned int Fighter::distance(const Vector2<unsigned int>& v1, const Vector2<un
     return std::abs(static_cast<int>(v1[0]) - static_cast<int>(v2[0])) + std::abs(static_cast<int>(v1[1]) - static_cast<int>(v2[0]));
 }
 
-void Fighter::takeBrutDamage(int damage) {
-    m_HP -= damage;
-    if (m_HP < 0) {
-        m_HP = 0;
-    }
-}
 
 void Fighter::takeDamage(int damage) {
-    m_HP -= damage*(100-m_defense[1])/100;
+    m_HP -= damage;
     if (m_HP < 0) {
         m_HP = 0;
     }
@@ -53,6 +47,8 @@ void Fighter::getHealed(int heal) {
 unsigned int Fighter::getHP() const {
     return m_HP;
 }
+
+
 
 void Fighter::gainDef(int def, bool inFight) {
     if (!inFight) {
@@ -90,3 +86,10 @@ void Fighter::update() {
     }
 }
 
+unsigned int Fighter::getAttack() const{
+    return m_attack[1];
+}
+
+unsigned int Fighter::getDefense() const{
+    return m_defense[1];
+}
