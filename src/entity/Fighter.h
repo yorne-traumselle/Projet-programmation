@@ -10,6 +10,7 @@ class Fighter : public Entity {
 public:
     typedef enum {myTurn, inFight, notInFight} FighterStatus;
 protected :
+
     int m_maxHP;
     int m_HP;
     int m_MP[2];
@@ -18,7 +19,7 @@ protected :
     FighterStatus m_fighterStatus;
 
 public:
-    Fighter(const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense);
+    Fighter(Map* map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense);
 
      ~Fighter() override = default;
 
@@ -27,8 +28,6 @@ public:
 
     // méthode de calcul de distance entière entre deux vecteurs
     static unsigned int distance(const Vector2<unsigned int>& v1, const Vector2<unsigned int>& v2);
-
-    void takeBrutDamage(int damage);
 
     void takeDamage(int damage);
 
@@ -39,8 +38,9 @@ public:
     void gainDef(int def, bool inFight);
     void gainMP(int mp, bool inFight);
     void gainAttack(int attack, bool inFight);
-
+    void useSpell(Vector2<unsigned int> position, int spellID);
     void update() override;
-
+    unsigned int getAttack() const;
+    unsigned int getDefense() const;
 };
 #endif //FIGHTER_H
