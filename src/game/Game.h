@@ -12,7 +12,7 @@ class Game {
 
 private :
 
-	enum class GameState { PLAY, EXIT };
+	enum class GameState { PLAY, PAUSE, INVENTORY, COMBAT, GAME_OVER, GAME_FINISHED, EXIT };
 	GameState m_gameState;			//Etat du jeu
 
     std::shared_ptr<Map> m_map;		//Carte du jeu
