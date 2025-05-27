@@ -1,9 +1,9 @@
-#ifndef CELL_H
-#define CELL_H
+#pragma once
+
 
 #include "../entity/Spell.h"
-#include "../entity/Entity.h"
 
+class Entity;
 class Cell {
 
   private :
@@ -32,9 +32,8 @@ class Cell {
     //doit etre appelee quand une entity entre ou quitte une cellule
     //Return nullptr si personne n'est sur la cell
     void steppedOnBy(Entity * entity);
-#include "Map.h"
-    Entity * Cell::whoIsSteppingOnMe();
+
+    Entity * whoIsSteppingOnMe();
     
     void doSpell(Spell * spell, Fighter& caster);
 };
-#endif // CELL_H

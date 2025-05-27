@@ -1,17 +1,17 @@
-#ifndef _MAP_H
-#define _MAP_H
+#pragma once
 
 #include <vector>
+
 
 #include "../utils/CSVReader.h"
 #include "../graphics/TextureManager.h"
 #include "../config.h"
-#include "../entity/Entity.h"
+
 #include "Cell.h"
 #include "../utils/Vector2.h"
 
 class Entity;
-
+class Cell;
 /// <summary>
 /// Classe utilisée pour gérer la carte du jeu
 /// </summary>
@@ -86,5 +86,3 @@ public :
 	//const MapType getMapType() const;
 
 };
-
-#endif //_MAP_H

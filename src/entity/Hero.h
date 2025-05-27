@@ -1,5 +1,4 @@
-#ifndef _HERO_H
-#define _HERO_H
+#pragma once
 
 #include "Fighter.h"
 #include "../inventory/Inventory.h"
@@ -20,12 +19,10 @@ public :
     Hero(Map* map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense, Inventory * inventory);
     virtual ~Hero();
 
-    virtual void update() override;
-    virtual void render() override;
+     void update() override;
+     void render() override;
 
 	void gainLevel();
 
 	void useItem(const std::string & itemName);
 };
-
-#endif //_HERO_H

@@ -8,8 +8,6 @@ Entity::Entity(Map* map, const Vector2<unsigned int>& position, const Vector2<fl
         loadTexture(filename, m_nameEntity);
 }
 
-Entity::~Entity(){}
-
 void Entity::setPosition(const Vector2<unsigned int>& position) {
     if (!m_map->getCell(position)->occupied()) {
         m_way = Way(m_tile, position, m_map);

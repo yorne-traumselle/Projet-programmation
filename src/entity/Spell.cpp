@@ -2,8 +2,9 @@
 // Created by yorne-traumselle on 26/05/25.
 //
 #include "Spell.h"
+#include "../game/Map.h"
 #include <cassert>
-
+#include <set>
 
 Spell::Spell(int baseValue, CastZone castZone, EffectZone effecZone, unsigned int zoneSize, unsigned int maxRange, unsigned int minRange, TypeSpell typeSpell): m_baseValue(baseValue), m_castZone(castZone), m_effectZone(effecZone), m_zoneSize(zoneSize), m_maxRange(maxRange), m_minRange(minRange), m_typeSpell(typeSpell) {
     assert(baseValue>0);
@@ -27,10 +28,11 @@ void Spell::cast(Fighter& caster, Vector2<unsigned int> position, Map& map) {
             for (int j = 0; j <= m_zoneSize; ++j) {
                 for (int i = 0; i + j <= m_zoneSize; ++i) {
                     std::set<Vector2<int>> uniqueOffsets;
-                    uniqueOffsets.insert({ i,  j});
-                    uniqueOffsets.insert({-i,  j});
-                    uniqueOffsets.insert({ i, -j});
-                    uniqueOffsets.insert({-i, -j});
+                    uniqueOffsets.insert(Vector2<int>(i, j));
+                    uniqueOffsets.insert(Vector2<int>(-i, j));
+                    uniqueOffsets.insert(Vector2<int>(i, -j));
+                    uniqueOffsets.insert(Vector2<int>(-i, -j));
+
 
                     for (const auto& offset : uniqueOffsets) {
                         Vector2<int> place = Vector2<int>(position[0], position[1]) + offset;

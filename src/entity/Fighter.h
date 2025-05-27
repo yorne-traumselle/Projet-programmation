@@ -2,11 +2,12 @@
 // Created by yorne-traumselle on 26/05/25.
 //
 
-#ifndef FIGHTER_H
-#define FIGHTER_H
-#include "Entity.h"
-#include "Spell.h"
+#pragma once
 
+#include "Entity.h"
+
+class Spell;
+class Map;
 class Fighter : public Entity {
 public:
     typedef enum {myTurn, inFight, notInFight} FighterStatus;
@@ -18,7 +19,7 @@ protected :
     int m_attack[2];
     int m_defense[2];
     FighterStatus m_fighterStatus;
-    std::vector<std::unique_ptr<Spell>> m_spells;
+    std::vector<Spell *> m_spells;
 
 
 public:
@@ -37,7 +38,7 @@ public:
     void getHealed(int heal);
 
     unsigned int getHP() const;
-
+    unsigned int getMaxHP() const;
     void gainDef(int def, bool inFight);
     void gainMP(int mp, bool inFight);
     void gainAttack(int attack, bool inFight);
@@ -45,7 +46,6 @@ public:
     void update() override;
     unsigned int getAttack() const;
     unsigned int getDefense() const;
-
-    void addSpell(std::unique_ptr<Spell> spell);
+    std::vector<Spell *> getSpells();
+    void addSpell(Spell * spell);
 };
-#endif //FIGHTER_H

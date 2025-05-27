@@ -1,5 +1,5 @@
 #include "Cell.h"
-
+#include "../entity/Fighter.h"
 
 Cell::Cell(unsigned int i , unsigned int j, unsigned int tile): 
 m_tile(tile) , 
