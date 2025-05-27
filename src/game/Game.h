@@ -21,9 +21,13 @@ private :
 
 	std::shared_ptr<Hero> m_hero;	//Personnage dans le jeu
 
-	std::vector<std::shared_ptr<Enemy>> m_minions; //ennemies
+	std::vector<std::shared_ptr<Minion>> m_minions; //ennemies
 
-	std::shared_ptr<Enemy> m_boss; //Boss final
+	std::shared_ptr<Boss> m_boss; //Boss final
+
+	std::shared_ptr<Inventory> m_inventory; //Boss final
+
+
 
 public : 
     /// <summary>
@@ -54,7 +58,7 @@ private :
 	/// Charge la carte du jeu
 	/// </summary>
 	/// <param name="width">nom et chemin du fichier contenant la carte du jeu.</param>
-	void loadGame(const std::string & filename = "assets/maps/map_lvl1.csv");
+	void loadGame(std::string roomName);
 	/// <summary>
 	/// Charge lles caractéristique du personnage.
 	/// </summary>
@@ -86,7 +90,7 @@ private :
 	void endGame();
 
 
-	void loadMap(const std::string & filename,std::string roomName="spawn");
+	void loadMap(std::string roomName);
 
 };
 

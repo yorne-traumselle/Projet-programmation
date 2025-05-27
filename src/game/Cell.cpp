@@ -1,13 +1,14 @@
 #include "Cell.h"
 #include "../entity/Fighter.h"
 
-Cell::Cell(unsigned int i , unsigned int j, unsigned int tile,bool isExit,std::string leadTo): 
+Cell::Cell(unsigned int i , unsigned int j, unsigned int tile,bool isExit,std::string leadTo,Vector2<unsigned int> nextRoomSpawn): 
 m_tile(tile) , 
 m_position(Vector2<unsigned int>(i,j)),
 m_entity(nullptr),
 empty(true),
 m_isExit(isExit),
-m_leadTo(leadTo)
+m_leadTo(leadTo),
+m_nextRoomSpawn(nextRoomSpawn)
 {
 }
 
@@ -44,3 +45,19 @@ void Cell::doSpell(Spell* spell, Fighter& caster) {
 }
 
 
+const bool Cell::isExit() const{
+    return m_isExit;
+}
+    
+const std::string Cell::leadTo() const{
+    return m_leadTo;
+}
+
+const Vector2<unsigned int> Cell::nextSpawn() const{
+    return m_nextRoomSpawn;
+}
+
+
+const Vector2<unsigned int> Cell::getPosition() const{
+    return m_position;
+}

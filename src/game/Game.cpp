@@ -36,21 +36,42 @@ void Game::initGame(unsigned int width, unsigned int height) {
 
 }
 
-void Game::loadGame(const std::string & filename){
-    loadMap(filename);
+void Game::loadGame(std::string roomName){
+    loadMap(roomName);
 }
 
-void Game::loadMap(const std::string & filename,std::string roomName){
-	m_map = std::make_shared<Map>(filename);
-	if (roomName=="spawn" || roomName=="shop1" || roomName=="shop2"){
+void Game::loadMap(std::string roomName){
+	std::string filename;
+	
+	if (roomName=="spawn" || roomName=="shop1"|| roomName=="shop2"){
 		m_gameState=GameState::PLAY;
+		if ( roomName=="spawn"){
+			filename="../assets/maps/spawn.txt";
+		}
+		if ( roomName=="shop1"){
+			filename="../assets/maps/shop1.txt";
+		}
+		if ( roomName=="shop2"){
+			filename="../assets/maps/shop2.txt";
+		}
+		
 	}else{
 		m_gameState=GameState::COMBAT;
+		if ( roomName=="MF"){
+			filename="../assets/maps/MF.txt";
+		}
+		if ( roomName=="BF"){
+			filename="../assets/maps/BF.txt";
+		}
+		
 	}
+
+	m_map = std::make_shared<Map>(filename);
 }
 
 void Game::loadHero(const Vector2<float>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity) {
-	m_hero = std::shared_ptr<Hero>(new Hero(position, size, filename, nameEntity));
+	m_inventory= std::shared_ptr<Inventory>(new Inventory());
+	m_hero = std::shared_ptr<Hero>(new Hero(position, size, filename, nameEntity,1,1,1,1,m_inventory));
 }
 
 void Game::gameLoop()
@@ -150,12 +171,14 @@ void Game::handleEvent()
 void Game::update()
 {	
 	m_hero->update();
-	/*
-	if (m_map->getMapType()==Map::MapType::Chill){
-		if (m_map->getCell(m_hero->getTile())->isExit()=true){
-			loadMap();
+	
+	if (m_gameState==GameState::PLAY){ //On verifie si on est sur une sortie
+		std::shared_ptr<Cell> current_cell=m_map->getCell(m_hero->getTile());
+		if (current_cell->isExit()==true){
+			loadMap(current_cell->leadTo());
+			m_hero->setPositionDirectly(current_cell->nextSpawn());//On place le hero dans l'entree de la nouvelle room
 		}
-	}*/
+	}
 }
 
 void Game::render()

@@ -3,12 +3,20 @@
 #include <iostream>
 #include <cassert>
 
-Map::Map(std::string filename,unsigned int map_type){
-	assert (map_type==0 || map_type==1 || map_type==2 );
-	loadMap(filename);
-	if (map_type==0) m_map_type=MapType::Chill;
-	if (map_type==1) m_map_type=MapType::MinionFight;
-	if (map_type==2) m_map_type=MapType::BossFight;
+Map::Map(std::string filename,std::string roomName){
+	//Creation de la map en fonction des 
+	if ( roomName=="spawn"){
+		m_exits.push_back(std::make_shared<Cell>(15, 5 , 0, true, "MF", Vector2<unsigned int>(0,7)));
+	}
+	if ( roomName=="shop1"){
+	}
+	if ( roomName=="shop2"){
+	}
+	if ( roomName=="MF"){
+		m_exits.push_back(std::make_shared<Cell>(15, 1 , 0, true, "MF", Vector2<unsigned int>(0,10)));
+	}
+	if ( roomName=="BF"){
+	}
 }
 
 Map::~Map()
@@ -17,7 +25,7 @@ Map::~Map()
 
 int Map::type(int x, int y) const
 {
-	return m_cells.at(x).at(y).getTile();
+	return m_cells.at(x).at(y)->getTile();
 }
 
 void Map::loadMap(std::string filename)
@@ -38,8 +46,11 @@ void Map::loadMap(std::string filename)
 	for (unsigned int i = 0; i < m_sizeY; ++i) {
 		for (unsigned int j = 0; j < m_sizeX; ++j) {
 			int tile = m_tiles[i][j];
-			m_cells[i].emplace_back(i, j, tile);  // Construction directe de la Cell
+			m_cells[i].push_back(std::make_shared<Cell>(i,j,tile)); 
 		}
+	}
+	for (unsigned int i = 0; i < m_exits.size(); ++i){
+		m_cells[m_exits[i]->getPosition()[0]][m_exits[i]->getPosition()[1]]=m_exits[i];
 	}
 }
 
@@ -50,7 +61,7 @@ void Map::drawMap()
 	for (unsigned int row = 0; row < m_sizeY; ++row) {
 		for (unsigned int column = 0; column < m_sizeX; ++column) {
 			
-			type = m_cells.at(row).at(column).getTile();
+			type = m_cells.at(row).at(column)->getTile();
 
             SDL_Rect destRect = {
                 column * JeuESIR::tileWidth,
@@ -76,8 +87,8 @@ const unsigned int Map::getWidth() const{
 	m_cells.front().size();
 }
 
-Cell * Map::getCell(Vector2<unsigned int> position) {
-	return &(m_cells.at(position[0]).at(position[1]));
+std::shared_ptr<Cell> Map::getCell(Vector2<unsigned int> position) {
+	return m_cells.at(position[0]).at(position[1]);
 }
 
 std::vector<std::vector<bool>> Map::getMatriceBool() {
