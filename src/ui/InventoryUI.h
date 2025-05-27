@@ -1,5 +1,5 @@
-#ifndef INVENTORY_UI_H
-#define INVENTORY_UI_H
+#ifndef __INVENTORYUI_H__
+#define __INVENTORYUI_H__
 
 #include "../inventory/Inventory.h"
 #include "../graphics/Renderer.h"
