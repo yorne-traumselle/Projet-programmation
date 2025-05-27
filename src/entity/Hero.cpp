@@ -7,8 +7,9 @@
 Hero::Hero(Map* map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense, Inventory * inventory):Fighter(map,position, size, filename, nameEntity,HP,MP, attack, defense), m_inventory(inventory), m_level(1) {
     m_fighterStatus = notInFight; // Heroes are not in fight by default
     m_utilized = false; // Not utilized any item at the start of the turn
-    addSpell(new DamageSpell(5, Spell::classic, Spell::circle, 1, 3, 0));
-    add
+    addSpell(new DamageSpell(5, Spell::classic, Spell::mono, 1, 5, 0));
+    addSpell(new HealSpell(5, Spell::classic, Spell::mono, 1, 5, 0));
+    addSpell(new TeleportSpell(5, Spell::classic, 5, 0));
 }
 
 Hero::~Hero() {}

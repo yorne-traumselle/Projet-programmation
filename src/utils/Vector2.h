@@ -2,6 +2,7 @@
 #define _VECTOR2_H
 
 #include <cmath>
+#include <queue>
 
 #include "MathUtils.h"
 
@@ -183,6 +184,10 @@ public:
 		return (v - (*this)).normalized();
 	}
 
+	Vector2 &operator=(Vector2 & other) const {
+		return *other;
+	}
+
 	/// <summary>
 	/// Returns a random unit vector.
 	/// </summary>
@@ -196,6 +201,53 @@ public:
 		return std::tie(m_coordinates[0], m_coordinates[1]) < std::tie(other.m_coordinates[0], other.m_coordinates[1]);
 	}
 
+	const std::vector<Vector2<int>> directions = {
+		{0, 1}, {1, 0}, {0, -1}, {-1, 0}
+	};
+
+	Vector2<int> findClosestReachableFreeCell(
+	const std::vector<std::vector<bool>>& occupied,
+	const Vector2<int>& pos2,
+	int X
+) {
+		Vector2<int> pos1 = *this;
+		int rows = occupied.size();
+		int cols = occupied[0].size();
+
+		std::queue<std::pair<Vector2<int>, int>> q;
+		std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
+
+		q.push({pos1, 0});
+		visited[pos1[0]][pos1[1]] = true;
+
+		Vector2<int> bestPos = {-1, -1};
+		int bestDist = std::numeric_limits<int>::max();
+
+		while (!q.empty()) {
+			auto [cur, steps] = q.front(); q.pop();
+
+			if (steps > X) continue;
+
+			if (!occupied[cur[0]][cur[1]]) {
+				int dist = cur.calcDistance(pos2);
+				if (dist < bestDist) {
+					bestDist = dist;
+					bestPos = cur;
+				}
+			}
+
+			for (const auto& dir : directions) {
+				Vector2<int> next = {cur[0] + dir[0], cur[1] + dir[1]};
+
+				if (next[0] >= 0 && next[0] < rows && next[1] >= 0 && next[1] < cols && !visited[next[0]][next[1]]) {
+					visited[next[0]][next[1]] = true;
+					q.push({next, steps + 1});
+				}
+			}
+		}
+
+		return bestPos;
+	}
 };
 
 
