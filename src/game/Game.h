@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "../utils/Timer.h"
 #include "../entity/Hero.h"
+#include "/home/drtin/projet_info/Projet-programmation/src/game/Hud.h"
 
 /// <summary>
 /// Classe représentant la gestion du jeu
@@ -12,12 +13,13 @@ class Game {
 
 private :
 
-	enum class GameState { PLAY, EXIT };
+	enum class GameState { PLAY, PAUSE, INVENTORY, COMBAT, GAME_OVER, GAME_FINISHED, EXIT };
 	GameState m_gameState;			//Etat du jeu
 
     std::shared_ptr<Map> m_map;		//Carte du jeu
 
 	std::shared_ptr<Hero> m_hero;	//Personnage dans le jeu
+	std::shared_ptr<Hud> m_hud; //c'est le petit HUD ;)
 
 public : 
     /// <summary>

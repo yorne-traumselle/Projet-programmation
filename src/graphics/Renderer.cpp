@@ -79,3 +79,7 @@ void Renderer::drawTexture(const Texture * texture, const Vector2<float>& center
 	SDL_Texture *text = texture->get();
 	SDL_RenderCopyEx( m_renderer, text, nullptr, &rect, rotation, nullptr, SDL_FLIP_NONE);
 }
+
+void Renderer::setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
+}

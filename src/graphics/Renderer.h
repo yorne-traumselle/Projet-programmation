@@ -102,6 +102,8 @@ public:
 	/// <param name="dest">Destination où la texture doit être rendue dans la fenêtre</param>
 	void drawTexture(SDL_Texture* texture, const SDL_Rect * src, const SDL_Rect * dest);
 	void drawTexture(const Texture * texture, const Vector2<float>& center, const Vector2<float>& scale, float rotation);
+	void setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
 };
 
 #endif
