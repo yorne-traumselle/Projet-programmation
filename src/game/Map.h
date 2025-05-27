@@ -68,24 +68,14 @@ public :
 	void drawMap();
 
 
-	const int getHeight() const;
+	const unsigned int getHeight() const;
 
-	const int getWidth() const;
+	const unsigned int getWidth() const;
 
 	Cell * getCell(Vector2<unsigned int> position);
-    
-	class Way {
 
-	  protected :
-		  std::vector<Vector2<unsigned int>> m_way;
-		  Cell* m_startCell;
-		  Cell* m_endCell;
-	  public :
-		Way(Cell* startCell, Cell* endCell):
-		m_startCell(startCell),m_endCell(endCell){
+	std::vector<std::vector<bool>> Map::getMatriceBool();
 
-		}
-	};	
 };
 
 #endif //_MAP_H

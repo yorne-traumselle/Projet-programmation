@@ -64,13 +64,29 @@ void Map::drawMap()
 	}
 }
 
-const int Map::getHeight() const{
+const unsigned int Map::getHeight() const{
 	return m_cells.size();
 }
-const int Map::getWidth() const{
+const unsigned int Map::getWidth() const{
 	m_cells.front().size();
 }
 
 Cell * Map::getCell(Vector2<unsigned int> position) {
 	return &(m_cells.at(position[0]).at(position[1]));
+}
+
+std::vector<std::vector<bool>> Map::getMatriceBool() {
+    unsigned int width = getWidth();
+    unsigned int height = getHeight();
+
+    std::vector<std::vector<bool>> matrice(width, std::vector<bool>(height, false));
+
+    for (unsigned i = 0; i < width; ++i) {
+        for (unsigned j = 0; j < height; ++j) {
+            Vector2<unsigned int> position(i, j);
+            matrice[i][j] = !getCell(position)->occupied();
+        }
+    }
+
+    return matrice;
 }
