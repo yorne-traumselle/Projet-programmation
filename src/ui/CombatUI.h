@@ -33,5 +33,7 @@ public:
 
     void renderSpells(Renderer * renderer, TTF_Font* font);
 
+    bool handleClick(int mouseX, int mouseY);
+
 };
 #endif
