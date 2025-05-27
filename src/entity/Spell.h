@@ -10,7 +10,7 @@ class Spell {
 public:
     typedef enum{cross, classic} CastZone;
     typedef enum{circle, mono} EffectZone;
-    typedef enum{attack, support} TypeSpell;
+    typedef enum{attack, support, teleportation} TypeSpell;
 protected:
 
     int m_baseValue;
@@ -29,4 +29,8 @@ public:
     static bool checkInMap(Vector2<int> place, const Map& map);
 
     virtual void castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster);
+
+    unsigned getMaxRange() const;
+    std::string getType() const;
+    static std::string statusToString(TypeSpell type);
 };

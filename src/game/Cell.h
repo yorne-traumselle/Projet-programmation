@@ -21,14 +21,17 @@ class Cell {
     std::string m_leadTo;//nom de la salle vers laquelle l'exit mène (="" si c pas une exit)
 
     bool m_isExit;
+
+    Vector2<unsigned int> m_nextRoomSpawn;
   
   public :
 
-    Cell(unsigned int row , unsigned int column, unsigned int tile,bool isExit=false,std::string leadTo="");
-    
-    const float getSize() const;
+    Cell(unsigned int row , unsigned int column, unsigned int tile,bool isExit=false,
+      std::string leadTo="",Vector2<unsigned int> nextRoomSpawn=Vector2<unsigned int>(0,0));
 
     const bool occupied() const;
+
+    const Vector2<unsigned int> getPosition() const;
 
     const int getTile() const;
 
@@ -41,4 +44,10 @@ class Cell {
     Entity * whoIsSteppingOnMe();
     
     void doSpell(Spell * spell, Fighter& caster);
+
+    const bool isExit() const;
+    
+    const std::string leadTo() const;
+
+    const Vector2<unsigned int> nextSpawn() const;
 };

@@ -55,3 +55,20 @@ bool Spell::checkInMap(Vector2<int> place, const Map& map) {
 void Spell::castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster) {
     cast(caster, position, map);
 }
+
+unsigned Spell::getMaxRange() const {
+    return m_maxRange;
+}
+
+std::string Spell::getType() const {
+    return statusToString(m_typeSpell);
+}
+
+ std::string statusToString(Spell::TypeSpell type) {
+    switch (type) {
+        case Spell::attack:    return "attack";
+        case Spell::support:    return "support";
+        case Spell::teleportation: return "teleportation";
+        default:                 return "unknown";
+    }
+}
