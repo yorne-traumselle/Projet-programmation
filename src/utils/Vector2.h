@@ -193,4 +193,14 @@ public:
 	}
 };
 
+namespace std {
+	template<typename T>
+	struct hash<Vector2<T>> {
+		size_t operator()(const Vector2<T>& v) const {
+			return hash<T>()(v[0]) ^ (hash<T>()(v[1]) << 1);
+		}
+	};
+}
+
+
 #endif //_VECTOR2_H

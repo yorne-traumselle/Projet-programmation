@@ -8,6 +8,7 @@
 #include "../graphics/TextureManager.h"
 #include "../game/Map.h"
 #include "../utils/Timer.h"
+#include "../game/Way.h"
 
 class Entity {
 public : typedef enum { running, destroy, not_moving } Status;
@@ -23,7 +24,7 @@ protected:
     std::string m_nameEntity;           //Nom de l'entité dans la liste
 	Status m_status;
 	static std::set<Entity*> s_entities;
-	Map::Way m_way;
+	Way m_way;
 
 
 public :
