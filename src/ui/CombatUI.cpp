@@ -80,9 +80,21 @@ void CombatUI::renderSpells(Renderer* renderer, TTF_Font* font) {
 
     auto spells = m_hero->getSpells();
 
-    for (size_t i = 0; i < spells.size(); ++i) {
-        std::string spellName = spells[i]->getName();
+    m_spellButtons.clear();  
 
-        renderer->Renderer::drawString(spellName.c_str(), Vector2<float>(startX + 10, startY + 10 + i * spacing),font, {255, 255, 255, 255}, 1.0 );
+    for (size_t i = 0; i < spells.size(); ++i) {
+        std::string spellName = spells[i]->getType();
+
+        // Création du rectangle pour cliquer
+        SDL_Rect buttonRect = {startX + 10, startY + 10 + static_cast<int>(i * spacing), 200, 25};
+        m_spellButtons.push_back(buttonRect); 
+
+        // Couleur différente si ce sort est sélectionné
+        SDL_Color textColor = (i == m_selectedSpellIndex) ? SDL_Color{255, 255, 0, 255} : SDL_Color{255, 255, 255, 255};
+        SDL_Color bgColor = {100, 100, 100, 255};
+
+        // Dessin du bouton + nom du sort
+        renderer->Renderer::drawRect(buttonRect, bgColor);
+        renderer->Renderer::drawString(spellName.c_str(), Vector2<float>(buttonRect.x + 5, buttonRect.y + 5), font, textColor, 1.0);
     }
 }
