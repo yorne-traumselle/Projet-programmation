@@ -1,36 +1,31 @@
-#ifndef _MAP_H
-#define _MAP_H
+#pragma once
 
 #include <vector>
+
 
 #include "../utils/CSVReader.h"
 #include "../graphics/TextureManager.h"
 #include "../config.h"
-#include "../entity/Entity.h"
+
 #include "Cell.h"
 #include "../utils/Vector2.h"
 
 class Entity;
-
+class Cell;
 /// <summary>
 /// Classe utilisée pour gérer la carte du jeu
 /// </summary>
 class Map {
 
-public : 
-	enum class MapType { Chill, MinionFight, BossFight}; //Type de map sur lequel on se trouve
-
 private : 
 
-	std::vector< std::vector<Cell> > m_cells;
+	std::vector< std::vector<std::shared_ptr<Cell>> > m_cells;
 	std::vector<std::shared_ptr<Entity>> m_entities;	//Un exemple de gestion des entitées
 
 	unsigned int m_sizeX;    //Taille de la carte
 	unsigned int m_sizeY;
 
-	const std::vector<int[2]> m_exits;
-
-	MapType m_map_type;
+	std::vector<std::shared_ptr<Cell>> m_exits;
 
 public :
 
@@ -38,9 +33,8 @@ public :
 	/// Constructeur de la carte du jeu.
 	/// </summary>
 	/// <param name="filename">Nom du fichier csv contenant la carte du jeu.</param>
-	/// <param name="map_type">type de map Chill (0), MinionFight (1) ou BossFight (2).
-	/// prend 0 par défaut</param>
-	Map(std::string filename = "assets/maps/map_lvl1.csv", unsigned int map_type=0);
+	/// <param name="roomName"></param>
+	Map(std::string filename = "assets/maps/map_lvl1.csv", std::string roomName);
 	// <summary>
 	/// Destucteur
 	/// </summary>
@@ -79,12 +73,10 @@ public :
 
 	const unsigned int getWidth() const;
 
-	Cell * getCell(Vector2<unsigned int> position);
+	std::shared_ptr<Cell> getCell(Vector2<unsigned int> position);
 
 	std::vector<std::vector<bool>> getMatriceBool();
 
 	//const MapType getMapType() const;
 
 };
-
-#endif //_MAP_H

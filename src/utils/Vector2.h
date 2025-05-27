@@ -168,7 +168,7 @@ public:
 	/// </summary>
 	/// <param name="v">The distance.</param>
 	/// <returns></returns>
-	Scalar distance(const Vector2<Scalar> & v) const
+	Scalar calcDistance(const Vector2<Scalar> & v) const
 	{
 		return ((*this) - v).norm();
 	}
@@ -191,7 +191,13 @@ public:
 	{
 		return Vector2(Scalar(1), Scalar(0)).rotate(MathUtils::random()*MathUtils::pi*Scalar(2));
 	}
+
+	bool operator<(const Vector2<Scalar>& other) const {
+		return std::tie(m_coordinates[0], m_coordinates[1]) < std::tie(other.m_coordinates[0], other.m_coordinates[1]);
+	}
+
 };
+
 
 namespace std {
 	template<typename T>

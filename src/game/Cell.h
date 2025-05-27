@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Map.h"
-#include <string>
-
-//#include "../entity/Spell.h"
 
 
-class Cell : public Map{
+#include "../entity/Spell.h"
+
+class Entity;
+class Cell {
 
   private :
 
@@ -22,14 +21,17 @@ class Cell : public Map{
     std::string m_leadTo;//nom de la salle vers laquelle l'exit mène (="" si c pas une exit)
 
     bool m_isExit;
+
+    Vector2<unsigned int> m_nextRoomSpawn;
   
   public :
 
-    Cell(unsigned int row , unsigned int column, unsigned int tile,bool isExit=false,std::string leadTo="");
-    
-    const float getSize() const;
+    Cell(unsigned int row , unsigned int column, unsigned int tile,bool isExit=false,
+      std::string leadTo="",Vector2<unsigned int> nextRoomSpawn=Vector2<unsigned int>(0,0));
 
     const bool occupied() const;
+
+    const Vector2<unsigned int> getPosition() const;
 
     const int getTile() const;
 
@@ -39,7 +41,13 @@ class Cell : public Map{
     //Return nullptr si personne n'est sur la cell
     void steppedOnBy(Entity * entity);
 
-    Entity * Cell::whoIsSteppingOnMe();
+    Entity * whoIsSteppingOnMe();
     
-    // void doSpell(Spell * spell);
+    void doSpell(Spell * spell, Fighter& caster);
+
+    const bool isExit() const;
+    
+    const std::string leadTo() const;
+
+    const Vector2<unsigned int> nextSpawn() const;
 };

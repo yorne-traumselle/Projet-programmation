@@ -94,6 +94,9 @@ public:
 	/// </summary>
 	void drawString(const std::string & text, Vector2<float> const & position, TTF_Font* font,  const SDL_Color& color, double size);
 
+	void drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled = true);
+
+
 	/// <summary>
 	/// ajoute dans le renderer une texture
 	/// </summary>

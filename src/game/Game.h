@@ -4,7 +4,12 @@
 #include "Map.h"
 #include "../utils/Timer.h"
 #include "../entity/Hero.h"
+<<<<<<< HEAD
 #include "/home/drtin/projet_info/Projet-programmation/src/game/Hud.h"
+=======
+#include "../entity/Fighter.h"
+#include <string>
+>>>>>>> 2408f09c1364702991966834b1a8a4a96c896a16
 
 /// <summary>
 /// Classe représentant la gestion du jeu
@@ -20,6 +25,14 @@ private :
 
 	std::shared_ptr<Hero> m_hero;	//Personnage dans le jeu
 	std::shared_ptr<Hud> m_hud; //c'est le petit HUD ;)
+
+	std::vector<std::shared_ptr<Minion>> m_minions; //ennemies
+
+	std::shared_ptr<Boss> m_boss; //Boss final
+
+	std::shared_ptr<Inventory> m_inventory; //Boss final
+
+
 
 public : 
     /// <summary>
@@ -50,7 +63,7 @@ private :
 	/// Charge la carte du jeu
 	/// </summary>
 	/// <param name="width">nom et chemin du fichier contenant la carte du jeu.</param>
-	void loadGame(const std::string & filename = "assets/maps/map_lvl1.csv");
+	void loadGame(std::string roomName);
 	/// <summary>
 	/// Charge lles caractéristique du personnage.
 	/// </summary>
@@ -80,6 +93,9 @@ private :
 	/// Fonction pour quitter le jeu et terminer SDL.
 	/// </summary>
 	void endGame();
+
+
+	void loadMap(std::string roomName);
 
 };
 
