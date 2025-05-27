@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-Map::Map(std::string filename)
-{
+Map::Map(std::string filename){
 	loadMap(filename);
 }
 
@@ -13,14 +12,30 @@ Map::~Map()
 
 int Map::type(int x, int y) const
 {
-	return m_map.at(x).at(y);
+	return m_cells.at(x).at(y).getTile();
 }
 
 void Map::loadMap(std::string filename)
-{
-	m_map = (new CSVReader(filename))->getData();
-	m_sizeY = m_map.size();
-	m_sizeX = m_map.front().size();
+{	
+
+	std::vector<std::vector<int>> m_tiles;
+	m_tiles = (new CSVReader(filename))->getData();
+	m_sizeY = m_tiles.size();
+	m_sizeX = m_tiles.front().size();
+
+// Redimensionne m_cells à la bonne taille
+	m_cells.resize(m_sizeY);
+	for (auto& row : m_cells) {
+		row.reserve(m_sizeX);  // Meilleure perf que resize + push_back
+	}
+
+	// Remplit chaque Cell avec i (ligne), j (colonne), et la tile correspondante
+	for (unsigned int i = 0; i < m_sizeY; ++i) {
+		for (unsigned int j = 0; j < m_sizeX; ++j) {
+			int tile = m_tiles[i][j];
+			m_cells[i].emplace_back(i, j, tile);  // Construction directe de la Cell
+		}
+	}
 }
 
 void Map::drawMap()
@@ -30,7 +45,7 @@ void Map::drawMap()
 	for (unsigned int row = 0; row < m_sizeY; ++row) {
 		for (unsigned int column = 0; column < m_sizeX; ++column) {
 			
-			type = m_map.at(row).at(column);
+			type = m_cells.at(row).at(column).getTile();
 
             SDL_Rect destRect = {
                 column * JeuESIR::tileWidth,
@@ -47,4 +62,31 @@ void Map::drawMap()
 			
 		}
 	}
+}
+
+const unsigned int Map::getHeight() const{
+	return m_cells.size();
+}
+const unsigned int Map::getWidth() const{
+	m_cells.front().size();
+}
+
+Cell * Map::getCell(Vector2<unsigned int> position) {
+	return &(m_cells.at(position[0]).at(position[1]));
+}
+
+std::vector<std::vector<bool>> Map::getMatriceBool() {
+    unsigned int width = getWidth();
+    unsigned int height = getHeight();
+
+    std::vector<std::vector<bool>> matrice(width, std::vector<bool>(height, false));
+
+    for (unsigned i = 0; i < width; ++i) {
+        for (unsigned j = 0; j < height; ++j) {
+            Vector2<unsigned int> position(i, j);
+            matrice[i][j] = !getCell(position)->occupied();
+        }
+    }
+
+    return matrice;
 }

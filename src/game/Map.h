@@ -7,6 +7,8 @@
 #include "../graphics/TextureManager.h"
 #include "../config.h"
 #include "../entity/Entity.h"
+#include "Cell.h"
+#include "../utils/Vector2.h"
 
 class Entity;
 
@@ -17,12 +19,13 @@ class Map {
 
 private : 
 
-    std::vector< std::vector< int > > m_map;	//un exemple de représentation de la carte sous forme de case
-
-	std::vector<std::shared_ptr<Entity>> _entities;	//Un exemple de gestion des entitées
+	std::vector< std::vector<Cell> > m_cells;
+	std::vector<std::shared_ptr<Entity>> m_entities;	//Un exemple de gestion des entitées
 
 	unsigned int m_sizeX;    //Taille de la carte
 	unsigned int m_sizeY;
+
+	
 
 public :
 
@@ -63,6 +66,15 @@ public :
 	/// Utilisation des textures en fonction du numéro de la case.
 	/// </summary>
 	void drawMap();
+
+
+	const unsigned int getHeight() const;
+
+	const unsigned int getWidth() const;
+
+	Cell * getCell(Vector2<unsigned int> position);
+
+	std::vector<std::vector<bool>> Map::getMatriceBool();
 
 };
 

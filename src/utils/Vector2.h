@@ -30,6 +30,11 @@ public:
 		m_coordinates[0] = z;
 		m_coordinates[1] = z;
 	}
+	template<class Scalar2>
+	Vector2(const Vector2<Scalar2> & v) {
+		m_coordinates[0] = static_cast<Scalar>(v[0]);
+		m_coordinates[1] = static_cast<Scalar>(v[1]);
+	}
 	
 	/// <summary>
 	/// Gets the value of the coordinate designated by index.
@@ -187,5 +192,15 @@ public:
 		return Vector2(Scalar(1), Scalar(0)).rotate(MathUtils::random()*MathUtils::pi*Scalar(2));
 	}
 };
+
+namespace std {
+	template<typename T>
+	struct hash<Vector2<T>> {
+		size_t operator()(const Vector2<T>& v) const {
+			return hash<T>()(v[0]) ^ (hash<T>()(v[1]) << 1);
+		}
+	};
+}
+
 
 #endif //_VECTOR2_H
