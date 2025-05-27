@@ -1,9 +1,14 @@
 #include "Map.h"
 
 #include <iostream>
+#include <cassert>
 
-Map::Map(std::string filename){
+Map::Map(std::string filename,unsigned int map_type){
+	assert (map_type==0 || map_type==1 || map_type==2 );
 	loadMap(filename);
+	if (map_type==0) m_map_type=MapType::Chill;
+	if (map_type==1) m_map_type=MapType::MinionFight;
+	if (map_type==2) m_map_type=MapType::BossFight;
 }
 
 Map::~Map()
@@ -81,8 +86,8 @@ std::vector<std::vector<bool>> Map::getMatriceBool() {
 
     std::vector<std::vector<bool>> matrice(width, std::vector<bool>(height, false));
 
-    for (unsigned i = 0; i < width; ++i) {
-        for (unsigned j = 0; j < height; ++j) {
+    for (unsigned int  i = 0; i < width; ++i) {
+        for (unsigned int j = 0; j < height; ++j) {
             Vector2<unsigned int> position(i, j);
             matrice[i][j] = !getCell(position)->occupied();
         }
