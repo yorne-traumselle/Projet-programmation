@@ -37,7 +37,16 @@ void Game::initGame(unsigned int width, unsigned int height) {
 }
 
 void Game::loadGame(const std::string & filename){
-    m_map = std::make_shared<Map>(filename);
+    loadMap(filename);
+}
+
+void Game::loadMap(const std::string & filename,std::string roomName){
+	m_map = std::make_shared<Map>(filename);
+	if (roomName=="spawn" || roomName=="shop1" || roomName=="shop2"){
+		m_gameState=GameState::PLAY;
+	}else{
+		m_gameState=GameState::COMBAT;
+	}
 }
 
 void Game::loadHero(const Vector2<float>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity) {
@@ -139,8 +148,14 @@ void Game::handleEvent()
 }
 
 void Game::update()
-{
+{	
 	m_hero->update();
+	/*
+	if (m_map->getMapType()==Map::MapType::Chill){
+		if (m_map->getCell(m_hero->getTile())->isExit()=true){
+			loadMap();
+		}
+	}*/
 }
 
 void Game::render()

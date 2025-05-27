@@ -38,22 +38,26 @@ void InventoryUI::handleInput(const SDL_Event& event){
 void InventoryUI::render(Renderer* renderer){
     for (size_t i = 0; i < m_itemNames.size(); ++i) {
         Vector2<float> pos = m_position + m_itemSpacing * i;
+        SDL_Rect box = { (int)pos[0], (int)pos[1], (int)m_itemBoxSize[0], (int)m_itemBoxSize[1] };
 
-        // Highlight selected item
-        if ((int)i == m_selectedIndex) {
-            SDL_SetRenderDrawColor(renderer->getSdlRenderer(), 100, 100, 255, 150);
-            SDL_Rect highlight = { (int)pos[0], (int)pos[1], (int)m_itemBoxSize[0], (int)m_itemBoxSize[1] };
-            SDL_RenderFillRect(renderer->getSdlRenderer(), &highlight);
+        if((int)i == m_selectedIndex) {
+            SDL_Color highlightColor = {100, 100, 255, 150};
+            renderer->drawRect(box, highlightColor, true);
         }
 
         std::shared_ptr<Item> item = m_inventory.getItem(m_itemNames[i]);
         int quantity = item ? m_inventory.m_items[m_itemNames[i]].second : 0;
         std::string displayText = m_itemNames[i] + " x" + std::to_string(quantity);
+
         renderer->drawString(displayText, pos, m_font, m_textColor, 1.0);
     }
 
     std::string goldText = "Gold: " + std::to_string(m_inventory.getGold());
-    renderer->drawString(goldText, Vector2<float>(m_position[0], m_position[1] + m_itemSpacing[1] * m_itemNames.size() + 20), m_font, m_textColor, 1.0);
+    Vector2<float> goldPos = Vector2<float>(
+        m_position[0],
+        m_position[1] + m_itemSpacing[1] * m_itemNames.size() + 20
+    );
+    renderer->drawString(goldText, goldPos, m_font, m_textColor, 1.0);
 }
 
 void InventoryUI::setPosition(const Vector2<float>& pos){

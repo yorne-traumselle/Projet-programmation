@@ -1,11 +1,14 @@
 #include "Cell.h"
 #include "../entity/Fighter.h"
 
-Cell::Cell(unsigned int i , unsigned int j, unsigned int tile): 
+Cell::Cell(unsigned int i , unsigned int j, unsigned int tile,bool isExit,std::string leadTo): 
 m_tile(tile) , 
 m_position(Vector2<unsigned int>(i,j)),
 m_entity(nullptr),
-empty(true){
+empty(true),
+m_isExit(isExit),
+m_leadTo(leadTo)
+{
 }
 
 
