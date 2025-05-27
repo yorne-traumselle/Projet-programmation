@@ -22,7 +22,7 @@ void Fighter::setPosition(const Vector2<unsigned int>& position) {
         Entity::setPosition(position);
     }
     else {
-        if (m_moved) {return}
+        if (m_moved) {return;}
         int distance = m_tile.calcDistance(position);
         if (distance > m_MP[1]) {
             Entity::setPosition(position);
@@ -106,6 +106,9 @@ void Fighter::addSpell(Spell * spell) {
 
 void Fighter::useSpell(Vector2<unsigned int> position, int id) {
     assert(id >= 0 && id < m_spells.size());
+    if (m_attacked || m_status != not_moving) {
+        return; // Cannot use a spell if already attacked this turn
+    }
     Spell * spell = m_spells[id];
     if (spell->getMaxRange()< distance(m_tile, position)) {
         spell->castOnCell(*m_map, position, *this);
