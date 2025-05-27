@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Map.h"
-#include <string>
-
-//#include "../entity/Spell.h"
 
 
-class Cell : public Map{
+#include "../entity/Spell.h"
+
+class Entity;
+class Cell {
 
   private :
 
@@ -39,7 +38,7 @@ class Cell : public Map{
     //Return nullptr si personne n'est sur la cell
     void steppedOnBy(Entity * entity);
 
-    Entity * Cell::whoIsSteppingOnMe();
+    Entity * whoIsSteppingOnMe();
     
-    // void doSpell(Spell * spell);
+    void doSpell(Spell * spell, Fighter& caster);
 };

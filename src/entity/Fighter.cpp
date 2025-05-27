@@ -2,6 +2,11 @@
 // Created by yorne-traumselle on 26/05/25.
 //
 #include "Fighter.h"
+#include "Entity.h"
+#include "../game/Map.h"
+#include "Spell.h"
+
+// Implementation of Fighter methods
 
 Fighter::Fighter(Map * map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense): Entity(map,position, size, filename, nameEntity), m_maxHP(HP), m_HP(HP), m_defense(defense), m_fighterStatus(notInFight) {
     m_MP[0]= MP;
@@ -17,7 +22,7 @@ void Fighter::setPosition(const Vector2<unsigned int>& position) {
         Entity::setPosition(position);
     }
     else {
-        int distance = distance(m_tile, position);
+        int distance = m_tile.calcDistance(position);
         if (distance > m_MP[1]) {
             Entity::setPosition(position);
         }
@@ -92,4 +97,21 @@ unsigned int Fighter::getAttack() const{
 
 unsigned int Fighter::getDefense() const{
     return m_defense[1];
+}
+
+void Fighter::addSpell(Spell * spell) {
+    m_spells.push_back(spell);
+}
+
+void Fighter::useSpell(Vector2<unsigned int> position, int id) {
+    assert(id >= 0 && id < m_spells.size());
+    m_spells[id]->castOnCell(*m_map, position, *this);
+}
+
+std::vector<Spell *> Fighter::getSpells() {
+    return m_spells;
+}
+
+unsigned int Fighter::getMaxHP() const {
+    return m_maxHP;
 }

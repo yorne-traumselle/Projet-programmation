@@ -2,8 +2,7 @@
 // Created by envy on 26/05/25.
 //
 
-#ifndef SPELLS_H
-#define SPELLS_H
+#pragma once
 #include "Spell.h"
 
 class DamageSpell : public Spell {
@@ -28,5 +27,3 @@ class TeleportSpell : public Spell {
 
         void effect(Fighter& caster, Fighter& victim) override;
     };
-
-#endif //SPELLS_H
