@@ -8,6 +8,8 @@
 #include "/home/drtin/projet_info/Projet-programmation/src/game/Hud.h"
 =======
 #include "../entity/Fighter.h"
+#include "../entity/Minion.h"
+#include "../entity/Boss.h"
 #include <string>
 >>>>>>> 2408f09c1364702991966834b1a8a4a96c896a16
 
@@ -97,6 +99,11 @@ private :
 
 	void loadMap(std::string roomName);
 
+	void loadMinions(const Vector2<float>& position, const Vector2<float>& size, 
+		const std::string &filename, const std::string &nameEntity);
+
+	void loadBoss(const Vector2<float>& position, const Vector2<float>& size, 
+		const std::string &filename, const std::string &nameEntity)
 };
 
 #endif //_GAME_H
