@@ -55,3 +55,7 @@ bool Spell::checkInMap(Vector2<int> place, const Map& map) {
 void Spell::castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster) {
     cast(caster, position, map);
 }
+
+unsigned Spell::getMaxRange() const {
+    return m_maxRange;
+}

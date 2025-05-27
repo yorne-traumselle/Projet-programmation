@@ -20,6 +20,9 @@ protected :
     int m_defense[2];
     FighterStatus m_fighterStatus;
     std::vector<Spell *> m_spells;
+    bool m_attacked = false;
+    bool m_moved = false;
+
 
 
 public:
@@ -48,4 +51,6 @@ public:
     unsigned int getDefense() const;
     std::vector<Spell *> getSpells();
     void addSpell(Spell * spell);
+    virtual void startTurn();
+    unsigned int getMP() const;
 };

@@ -22,11 +22,12 @@ void Fighter::setPosition(const Vector2<unsigned int>& position) {
         Entity::setPosition(position);
     }
     else {
+        if (m_moved) {return}
         int distance = m_tile.calcDistance(position);
         if (distance > m_MP[1]) {
             Entity::setPosition(position);
+            m_moved = true;
         }
-
     }
 }
 
@@ -105,7 +106,10 @@ void Fighter::addSpell(Spell * spell) {
 
 void Fighter::useSpell(Vector2<unsigned int> position, int id) {
     assert(id >= 0 && id < m_spells.size());
-    m_spells[id]->castOnCell(*m_map, position, *this);
+    Spell * spell = m_spells[id];
+    if (spell->getMaxRange()< distance(m_tile, position)) {
+        spell->castOnCell(*m_map, position, *this);
+    }
 }
 
 std::vector<Spell *> Fighter::getSpells() {
@@ -114,4 +118,13 @@ std::vector<Spell *> Fighter::getSpells() {
 
 unsigned int Fighter::getMaxHP() const {
     return m_maxHP;
+}
+
+void Fighter::startTurn() {
+    m_attacked = false;
+    m_moved = false;
+}
+
+unsigned int Fighter::getMP() const {
+    return m_MP[1];
 }
