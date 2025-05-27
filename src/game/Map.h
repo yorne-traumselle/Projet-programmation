@@ -7,6 +7,8 @@
 #include "../graphics/TextureManager.h"
 #include "../config.h"
 #include "../entity/Entity.h"
+#include "Cell.h"
+#include "../utils/Vector2.h"
 
 class Entity;
 
@@ -15,14 +17,20 @@ class Entity;
 /// </summary>
 class Map {
 
+public : 
+	enum class MapType { Chill, MinionFight, BossFight}; //Type de map sur lequel on se trouve
+
 private : 
 
-    std::vector< std::vector< int > > m_map;	//un exemple de représentation de la carte sous forme de case
-
-	std::vector<std::shared_ptr<Entity>> _entities;	//Un exemple de gestion des entitées
+	std::vector< std::vector<Cell> > m_cells;
+	std::vector<std::shared_ptr<Entity>> m_entities;	//Un exemple de gestion des entitées
 
 	unsigned int m_sizeX;    //Taille de la carte
 	unsigned int m_sizeY;
+
+	const std::vector<int[2]> m_exits;
+
+	MapType m_map_type;
 
 public :
 
@@ -30,7 +38,9 @@ public :
 	/// Constructeur de la carte du jeu.
 	/// </summary>
 	/// <param name="filename">Nom du fichier csv contenant la carte du jeu.</param>
-	Map(std::string filename = "assets/maps/map_lvl1.csv");
+	/// <param name="map_type">type de map Chill (0), MinionFight (1) ou BossFight (2).
+	/// prend 0 par défaut</param>
+	Map(std::string filename = "assets/maps/map_lvl1.csv", unsigned int map_type=0);
 	// <summary>
 	/// Destucteur
 	/// </summary>
@@ -63,6 +73,17 @@ public :
 	/// Utilisation des textures en fonction du numéro de la case.
 	/// </summary>
 	void drawMap();
+
+
+	const unsigned int getHeight() const;
+
+	const unsigned int getWidth() const;
+
+	Cell * getCell(Vector2<unsigned int> position);
+
+	std::vector<std::vector<bool>> getMatriceBool();
+
+	//const MapType getMapType() const;
 
 };
 

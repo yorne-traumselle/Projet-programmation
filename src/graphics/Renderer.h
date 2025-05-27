@@ -93,18 +93,17 @@ public:
 	/// </summary>
 	void drawString(const std::string & text, Vector2<float> const & position, TTF_Font* font,  const SDL_Color& color, double size);
 
-
-	//la on va ajouter un rectangle qui prends la position et le size, la couleur et si ca doit être filled ou pas 
 	void drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled = true);
+
 
 	/// <summary>
 	/// ajoute dans le renderer une texture
 	/// </summary>
-	/// <param name="texture">Texture à afficher dans le renderer</param>
-	/// <param name="src">Partie de la texture initiale à copier (coordonnées x, y et taille w, h)</param>
+	/// <param name="texture">Texture à afficher dans le renderer</param>	/// <param name="src">Partie de la texture initiale à copier (coordonnées x, y et taille w, h)</param>
 	/// <param name="dest">Destination où la texture doit être rendue dans la fenêtre</param>
 	void drawTexture(SDL_Texture* texture, const SDL_Rect * src, const SDL_Rect * dest);
 	void drawTexture(const Texture * texture, const Vector2<float>& center, const Vector2<float>& scale, float rotation);
 };
 
 #endif
+

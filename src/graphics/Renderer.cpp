@@ -81,6 +81,19 @@ void Renderer::drawRect(const SDL_Rect& rect, const SDL_Color& color, bool fille
 }
 
 
+void Renderer::drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled)
+{
+    SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+
+    if (filled) {
+        SDL_RenderFillRect(m_renderer, &rect);
+    } else {
+        SDL_RenderDrawRect(m_renderer, &rect);
+    }
+
+}
+
 void Renderer::drawTexture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect * dest)
 {
     SDL_RenderCopy(m_renderer, texture, src, dest);

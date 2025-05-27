@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <unordered_set>
+#include <unordered_map>
 
 #include "Renderer.h"
 #include "Texture.h"
