@@ -6,7 +6,9 @@
 Way::Way(const Vector2<unsigned>& depart, const Vector2<unsigned>& arrivee, Map* map)
         : m_depart(depart), m_arrivee(arrivee), m_map(map) {}
 
-Way::Way(Map * map):m_depart(Vector2<unsigned>(0,0)), m_arrivee(Vector2<unsigned>(0,0)),m_map(map){}
+Way::Way(Map * map):m_depart(Vector2<unsigned>(0,0)), m_arrivee(Vector2<unsigned>(0,0)),m_map(map) {
+
+}
 
 
 std::deque<Vector2<int>> Way::compute(unsigned X) {

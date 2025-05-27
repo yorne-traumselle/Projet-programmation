@@ -93,3 +93,12 @@ unsigned int Fighter::getAttack() const{
 unsigned int Fighter::getDefense() const{
     return m_defense[1];
 }
+
+void Fighter::addSpell(std::unique_ptr<Spell> spell) {
+    m_spells.push_back(std::move(spell));
+}
+
+void Fighter::useSpell(Vector2<unsigned int> position, int id) {
+    assert(id >= 0 && id < m_spells.size());
+    m_spells[id]->castOnCell(*m_map, position, *this);
+}

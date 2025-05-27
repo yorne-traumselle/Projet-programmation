@@ -12,8 +12,7 @@ Entity::~Entity(){}
 
 void Entity::setPosition(const Vector2<unsigned int>& position) {
     if (!m_map->getCell(position)->occupied()) {
-        Way way = Way(m_tile, position, m_map);
-        m_tile = position;
+        m_way = Way(m_tile, position, m_map);
         m_status = running;
     }
 }
@@ -51,7 +50,8 @@ void Entity::update() {
         float distance = difference.norm();
         Vector2<float> direction = difference/distance;
         if (distance < m_speed * Timer::getInstance().getSeconds()) {
-            setPosition(target);
+            m_position = target;
+            m_tile = m_tile + m_way.front();
             m_way.popFront();
         }
         else {

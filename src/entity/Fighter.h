@@ -5,6 +5,7 @@
 #ifndef FIGHTER_H
 #define FIGHTER_H
 #include "Entity.h"
+#include "Spell.h"
 
 class Fighter : public Entity {
 public:
@@ -17,6 +18,8 @@ protected :
     int m_attack[2];
     int m_defense[2];
     FighterStatus m_fighterStatus;
+    std::vector<std::unique_ptr<Spell>> m_spells;
+
 
 public:
     Fighter(Map* map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense);
@@ -38,9 +41,11 @@ public:
     void gainDef(int def, bool inFight);
     void gainMP(int mp, bool inFight);
     void gainAttack(int attack, bool inFight);
-    void useSpell(Vector2<unsigned int> position, int spellID);
+    void useSpell(Vector2<unsigned int> position, int id);
     void update() override;
     unsigned int getAttack() const;
     unsigned int getDefense() const;
+
+    void addSpell(std::unique_ptr<Spell> spell);
 };
 #endif //FIGHTER_H

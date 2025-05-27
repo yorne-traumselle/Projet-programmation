@@ -19,9 +19,9 @@ void Spell::cast(Fighter& caster, Vector2<unsigned int> position, Map& map) {
     assert(position[0] >= 0 && position[1] >= 0);
     switch (m_effectZone) {
         case mono :
-            if (!map.getCell(position)->occupied()) {
-                map.getCell(position).doSpell(this);
-            }
+
+            map.getCell(position)->doSpell(this, caster);
+
             break;
         case circle:
             for (int j = 0; j <= m_zoneSize; ++j) {
@@ -34,8 +34,8 @@ void Spell::cast(Fighter& caster, Vector2<unsigned int> position, Map& map) {
 
                     for (const auto& offset : uniqueOffsets) {
                         Vector2<int> place = Vector2<int>(position[0], position[1]) + offset;
-                        if (checkInMap(place, map) && !map.getCell(place)->occupied()) {
-                            map.getCell(place).doSpell(this);
+                        if (checkInMap(place, map) ) {
+                            map.getCell(place)->doSpell(this, caster);
                         }
                     }
                 }
@@ -51,7 +51,5 @@ bool Spell::checkInMap(Vector2<int> place, const Map& map) {
 }
 
 void Spell::castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster) {
-    if (!map.getCell(position)->occupied()) {
-        cast(caster, position, map);
-    }
+    cast(caster, position, map);
 }
