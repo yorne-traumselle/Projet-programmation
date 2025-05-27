@@ -4,7 +4,7 @@
 #include "../config.h"
 
 Entity::Entity(Map* map, const Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, float speed): m_map(map),
-    m_position((position +Vector2(0.5, 0.5))* JeuESIR::originalTileHeight), m_tile(position), m_speed(speed), m_size(size), m_nameEntity(nameEntity), m_status(not_moving), m_way(Map::Way()){
+    m_position((position +Vector2(0.5, 0.5))* JeuESIR::originalTileHeight), m_tile(position), m_speed(speed), m_size(size), m_nameEntity(nameEntity), m_status(not_moving), m_way(Way(map)){
         loadTexture(filename, m_nameEntity);
 }
 
@@ -12,7 +12,7 @@ Entity::~Entity(){}
 
 void Entity::setPosition(const Vector2<unsigned int>& position) {
     if (!m_map->getCell(position)->occupied()) {
-        Map::Way way = Map::Way(m_map->getCell(m_tile), m_map->getCell(position));
+        Way way = Way(m_tile, position, m_map);
         m_tile = position;
         m_status = running;
     }
