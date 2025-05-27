@@ -2,14 +2,13 @@
 // Created by yorne-traumselle on 27/05/25.
 //
 
-#ifndef WAY_H
-#define WAY_H
+#pragma once
+
 #include "Map.h"
-#include "Way.h"
 #include <deque>
 #include <vector>
 #include <queue>
-
+class Map;
 class Way {
 
     Vector2<unsigned> m_depart;
@@ -27,4 +26,4 @@ public:
 };
 
 
-#endif //WAY_H
+

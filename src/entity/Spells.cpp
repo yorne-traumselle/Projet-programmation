@@ -2,6 +2,8 @@
 // Created by envy on 26/05/25.
 //
 #include "Spells.h"
+#include "Fighter.h"
+
 
 DamageSpell::DamageSpell(int baseValue, CastZone castZone, EffectZone effectZone, unsigned int zoneSize, unsigned int maxRange, unsigned int minRange):
 	Spell(baseValue, castZone, effectZone, zoneSize, maxRange, minRange, attack){}

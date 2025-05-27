@@ -1,15 +1,16 @@
-#ifndef _ENTITY_H
-#define _ENTITY_H
+#pragma once
 
 #include <set>
 
 #include "../utils/Vector2.h"
 #include "../graphics/Texture.h"
 #include "../graphics/TextureManager.h"
-#include "../game/Map.h"
+
 #include "../utils/Timer.h"
 #include "../game/Way.h"
 
+
+class Map;
 class Entity {
 public : typedef enum { running, destroy, not_moving } Status;
 
@@ -24,7 +25,7 @@ protected:
     std::string m_nameEntity;           //Nom de l'entité dans la liste
 	Status m_status;
 	static std::set<Entity*> s_entities;
-	Way m_way;
+	Way  m_way;
 
 
 public :
@@ -41,7 +42,8 @@ public :
     /// <summary>
 	/// Destucteur de l'entité.
 	/// </summary>
-    virtual ~Entity();
+	virtual ~Entity() = default;
+
 
     virtual void setPosition(const Vector2<unsigned int>& position); // place à la position indiquée
 	void setPositionDirectly(const Vector2<unsigned int>& position); // places directly at the desired position
@@ -77,4 +79,3 @@ public :
 
 };
 
-#endif //_ENTITY_H
