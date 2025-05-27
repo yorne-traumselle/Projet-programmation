@@ -29,4 +29,6 @@ public:
     static bool checkInMap(Vector2<int> place, const Map& map);
 
     virtual void castOnCell(Map& map, Vector2<unsigned int> position, Fighter& caster);
+
+    unsigned getMaxRange() const;
 };

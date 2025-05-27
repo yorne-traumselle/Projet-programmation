@@ -15,22 +15,33 @@ void Hero::render() {
     Entity::render();
 }
 
+
+
 void Hero::gainLevel() {
     m_level++;
 }
 
 void Hero::useItem(const std::string& itemName) {
+    if (m_utilized) {
+        return; // already used an item this turn
+    }
     if (m_inventory->hasItem(itemName)) {
         std::shared_ptr<Item> item = m_inventory->getItem(itemName);
         if (Consumable* consumable = dynamic_cast<Consumable*>(item.get())) {
             // consumable is a pointer to Consumable
             consumable->consume(*this);
             m_inventory->removeItem(itemName);
+            m_utilized = true;
         }
         if (Equipment * equipment = dynamic_cast<Equipment*>(item.get())) {
             equipment->equipped(*this);
             m_inventory->removeItem(itemName);
+            m_utilized = true;
         }
     }
 }
 
+void Hero::startTurn() {
+    Fighter::startTurn();
+    m_utilized= false;
+}
