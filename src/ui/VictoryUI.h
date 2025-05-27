@@ -2,6 +2,7 @@
 #define __VICTORYUI_H__
 
 #include "../utils/Vector2.h"
+#include "../graphics/Renderer.h"
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
