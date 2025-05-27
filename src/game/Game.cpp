@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../theme.h"
+#include "/home/drtin/projet_info/Projet-programmation/src/game/Hud.h"
 
 #include <iostream>
 
@@ -25,6 +26,20 @@ void Game::initGame(unsigned int width, unsigned int height) {
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
 		exit(3);
 	}
+	//Initialization de Renderer
+	Renderer::initialize(width, height);
+
+	int hudW = 200;
+	int hudH = 50;
+	int margin = 10;
+
+	int screenW = Renderer::getInstance()->width();
+	int screenH = Renderer::getInstance()->height();
+
+	int posX = 10; // left margin
+	int posY = screenH - hudH - margin; // 10 pixels above the bottom
+
+	m_hud = std::make_shared<Hud>(posX, posY, hudW, hudH);
 
     Renderer::initialize(width, height);
 
@@ -194,6 +209,8 @@ void Game::render()
 {
 	m_map->drawMap();
 	m_hero->render();
+	if (m_hud) {
+        m_hud->draw();}
 	Renderer::getInstance()->render();
 }
 

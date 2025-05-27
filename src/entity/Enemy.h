@@ -9,6 +9,8 @@ class Enemy : public Fighter {
 public:
     Enemy(Map * map, Vector2<unsigned int>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity, const int HP, const int MP, const int attack, const int defense);
     ~Enemy() override = default;
-    void update() override;
-}
+
+
+    void startTurn() override;
+};
 //ENEMY_H

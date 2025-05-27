@@ -4,10 +4,14 @@
 #include "Map.h"
 #include "../utils/Timer.h"
 #include "../entity/Hero.h"
+<<<<<<< HEAD
+#include "/home/drtin/projet_info/Projet-programmation/src/game/Hud.h"
+=======
 #include "../entity/Fighter.h"
 #include "../entity/Minion.h"
 #include "../entity/Boss.h"
 #include <string>
+>>>>>>> 2408f09c1364702991966834b1a8a4a96c896a16
 
 /// <summary>
 /// Classe représentant la gestion du jeu
@@ -22,6 +26,7 @@ private :
     std::shared_ptr<Map> m_map;		//Carte du jeu
 
 	std::shared_ptr<Hero> m_hero;	//Personnage dans le jeu
+	std::shared_ptr<Hud> m_hud; //c'est le petit HUD ;)
 
 	std::vector<std::shared_ptr<Minion>> m_minions; //ennemies
 

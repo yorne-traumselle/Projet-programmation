@@ -30,7 +30,6 @@ protected:
 	SDL_Window * m_window;	//fenêtre de rendu (SDL)
 
 	SDL_Renderer * m_renderer; //Moteur de rendu interne à SDL
-	
 
 	/// <summary>
 	/// Initialise une nouvelle instance de <see cref="Renderer"/> class.
@@ -100,11 +99,13 @@ public:
 	/// <summary>
 	/// ajoute dans le renderer une texture
 	/// </summary>
-	/// <param name="texture">Texture à afficher dans le renderer</param>
-	/// <param name="src">Partie de la texture initiale à copier (coordonnées x, y et taille w, h)</param>
+	/// <param name="texture">Texture à afficher dans le renderer</param>	/// <param name="src">Partie de la texture initiale à copier (coordonnées x, y et taille w, h)</param>
 	/// <param name="dest">Destination où la texture doit être rendue dans la fenêtre</param>
 	void drawTexture(SDL_Texture* texture, const SDL_Rect * src, const SDL_Rect * dest);
 	void drawTexture(const Texture * texture, const Vector2<float>& center, const Vector2<float>& scale, float rotation);
+	void setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
 };
 
 #endif
+

@@ -18,7 +18,7 @@ void HealSpell::effect(Fighter& caster, Fighter& victim) {
     victim.getHealed(m_baseValue);
 }
 
-TeleportSpell::TeleportSpell(int baseValue, CastZone castZone, unsigned int maxRange, unsigned int minRange):Spell(baseValue, castZone, mono, 0, maxRange, minRange, support){}
+TeleportSpell::TeleportSpell(int baseValue, CastZone castZone, unsigned int maxRange, unsigned int minRange):Spell(baseValue, castZone, mono, 0, maxRange, minRange, teleportation){}
 
 void TeleportSpell::castOnCell(Map& map, Vector2<unsigned int> position,Fighter& caster) {
     if (!map.getCell(position)->occupied()) {
@@ -27,3 +27,4 @@ void TeleportSpell::castOnCell(Map& map, Vector2<unsigned int> position,Fighter&
 }
 
 void TeleportSpell::effect(Fighter& caster, Fighter& victim){}
+

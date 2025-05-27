@@ -5,6 +5,8 @@
 /// </summary>
 std::unique_ptr<Renderer> Renderer::m_singleton = nullptr;
 
+
+
 /// <summary>
 /// Initializes a new instance of the <see cref="Renderer"/> class.
 /// </summary>
@@ -78,6 +80,20 @@ void Renderer::drawRect(const SDL_Rect& rect, const SDL_Color& color, bool fille
 
 }
 
+
+void Renderer::drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled)
+{
+    SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+
+    if (filled) {
+        SDL_RenderFillRect(m_renderer, &rect);
+    } else {
+        SDL_RenderDrawRect(m_renderer, &rect);
+    }
+
+}
+
 void Renderer::drawTexture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect * dest)
 {
     SDL_RenderCopy(m_renderer, texture, src, dest);
@@ -91,4 +107,8 @@ void Renderer::drawTexture(const Texture * texture, const Vector2<float>& center
     rect.h = scale[1];
 	SDL_Texture *text = texture->get();
 	SDL_RenderCopyEx( m_renderer, text, nullptr, &rect, rotation, nullptr, SDL_FLIP_NONE);
+}
+
+void Renderer::setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
 }
