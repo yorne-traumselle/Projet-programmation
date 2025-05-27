@@ -5,6 +5,8 @@
 #include "../utils/Timer.h"
 #include "../entity/Hero.h"
 #include "../entity/Fighter.h"
+#include "../entity/Minion.h"
+#include "../entity/Boss.h"
 #include <string>
 
 /// <summary>
@@ -92,6 +94,11 @@ private :
 
 	void loadMap(std::string roomName);
 
+	void loadMinions(const Vector2<float>& position, const Vector2<float>& size, 
+		const std::string &filename, const std::string &nameEntity);
+
+	void loadBoss(const Vector2<float>& position, const Vector2<float>& size, 
+		const std::string &filename, const std::string &nameEntity)
 };
 
 #endif //_GAME_H

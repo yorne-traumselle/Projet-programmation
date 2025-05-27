@@ -59,6 +59,7 @@ void Game::loadMap(std::string roomName){
 		m_gameState=GameState::COMBAT;
 		if ( roomName=="MF"){
 			filename="../assets/maps/MF.txt";
+			loadMinions();
 		}
 		if ( roomName=="BF"){
 			filename="../assets/maps/BF.txt";
@@ -72,6 +73,14 @@ void Game::loadMap(std::string roomName){
 void Game::loadHero(const Vector2<float>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity) {
 	m_inventory= std::shared_ptr<Inventory>(new Inventory());
 	m_hero = std::shared_ptr<Hero>(new Hero(position, size, filename, nameEntity,1,1,1,1,m_inventory));
+}
+
+void Game::loadMinions(const Vector2<float>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity) {
+	m_minions.push_back(std::make_shared<Minion>(position, size, filename, nameEntity));
+}
+
+void Game::loadBoss(const Vector2<float>& position, const Vector2<float>& size, const std::string &filename, const std::string &nameEntity) {
+	m_boss=std::make_shared<Boss>(position, size, filename, nameEntity);
 }
 
 void Game::gameLoop()
