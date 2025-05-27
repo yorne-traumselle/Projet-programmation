@@ -30,7 +30,6 @@ protected:
 	SDL_Window * m_window;	//fenêtre de rendu (SDL)
 
 	SDL_Renderer * m_renderer; //Moteur de rendu interne à SDL
-	
 
 	/// <summary>
 	/// Initialise une nouvelle instance de <see cref="Renderer"/> class.
@@ -93,6 +92,10 @@ public:
 	/// ajoute dans le renderer une chaine de caractères.
 	/// </summary>
 	void drawString(const std::string & text, Vector2<float> const & position, TTF_Font* font,  const SDL_Color& color, double size);
+
+
+	//la on va ajouter un rectangle qui prends la position et le size, la couleur et si ca doit être filled ou pas 
+	void drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled = true);
 
 	/// <summary>
 	/// ajoute dans le renderer une texture

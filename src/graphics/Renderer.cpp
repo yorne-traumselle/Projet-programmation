@@ -5,6 +5,8 @@
 /// </summary>
 std::unique_ptr<Renderer> Renderer::m_singleton = nullptr;
 
+
+
 /// <summary>
 /// Initializes a new instance of the <see cref="Renderer"/> class.
 /// </summary>
@@ -64,6 +66,20 @@ void Renderer::drawString(const std::string & text, Vector2<float> const & posit
     SDL_DestroyTexture(textureText);
     SDL_FreeSurface(surfaceText);
 }
+
+void Renderer::drawRect(const SDL_Rect& rect, const SDL_Color& color, bool filled)
+{
+    SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+
+    if (filled) {
+        SDL_RenderFillRect(m_renderer, &rect);
+    } else {
+        SDL_RenderDrawRect(m_renderer, &rect);
+    }
+
+}
+
 
 void Renderer::drawTexture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect * dest)
 {
